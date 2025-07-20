@@ -38,6 +38,18 @@ import repast.simphony.space.grid.StickyBorders;
 public class ContextCreator implements ContextBuilder {
     int numAgents;
     double zoneDistance;
+    
+    // DEFINICIÓN DE RUTAS
+    /* centro viña*/
+    //private static final String INITIAL_ZONE_SHAPEFILE_PATH = "./data/POLYGON.shp";
+    //private static final String SAFE_ZONE_SHAPEFILE_PATH = "./data/Zones2.shp";
+    //private static final String ROADS_SHAPEFILE_PATH = "./data/roads.shp";
+    /*forestal*/
+    private static final String INITIAL_ZONE_SHAPEFILE_PATH = "./data/map_data_initial_zones.shp";
+    private static final String SAFE_ZONE_SHAPEFILE_PATH = "./data/map_data_safe_zones.shp";
+    private static final String ROADS_SHAPEFILE_PATH = "./data/map_data_roads.shp";
+
+    
     private ZoneAgent initialZone;
     private ZoneAgent safeZone;
 
@@ -45,10 +57,17 @@ public class ContextCreator implements ContextBuilder {
     private static final int GRID_WIDTH = 400; //cambiar segun estandar
     private static final int GRID_HEIGHT = 400;
     
-    private static final double MIN_LONGITUDE = -71.55435632438811;
-    private static final double MAX_LONGITUDE = -71.54257547377763;
-    private static final double MIN_LATITUDE = -33.026878836652145;
-    private static final double MAX_LATITUDE = -33.00825336021646;
+    /*centro de viña*/
+    //private static final double MIN_LONGITUDE = -71.55435632438811;
+    //private static final double MAX_LONGITUDE = -71.54257547377763;
+    //private static final double MIN_LATITUDE = -33.026878836652145;
+    //private static final double MAX_LATITUDE = -33.00825336021646;
+    
+    /*forestal*/
+    private static final double MIN_LONGITUDE = -71.55738537364508;
+    private static final double MAX_LONGITUDE = -71.52906755695355;
+    private static final double MIN_LATITUDE = -33.067424934437135;
+    private static final double MAX_LATITUDE = -33.02551864106715;
 
     private static Grid<MapCell> mapCellGrid;
     private static Grid<GisAgent> agentGrid;
@@ -130,8 +149,8 @@ public class ContextCreator implements ContextBuilder {
         // Carga de las Zonas
         System.out.println("DEBUG: Cargando el shapefile de zonas y marcando celdas en la grilla de MapCells...");
 
-        // Zona inicial polygon.shp
-        String initialZoneFilename = "./data/POLYGON.shp";
+        // Zona inicial
+        String initialZoneFilename = INITIAL_ZONE_SHAPEFILE_PATH;
         List<SimpleFeature> featuresForInitialZone = loadFeaturesFromShapefile(initialZoneFilename);
 
         if (featuresForInitialZone.isEmpty()) {
@@ -158,7 +177,9 @@ public class ContextCreator implements ContextBuilder {
         System.out.println("DEBUG: Celdas para zona inicial marcadas.");
 
         // Zona segura Zones2.shp
-        String safeZoneFilename = "./data/Zones2.shp";
+        //String safeZoneFilename = "./data/Zones2.shp";
+        //String safeZoneFilename = "./data/map_data_safe_zones.shp";
+        String safeZoneFilename = SAFE_ZONE_SHAPEFILE_PATH;
         List<SimpleFeature> featuresForSafeZone = loadFeaturesFromShapefile(safeZoneFilename);
 
         if (featuresForSafeZone.isEmpty()) {
@@ -191,7 +212,9 @@ public class ContextCreator implements ContextBuilder {
 
         // Carga de las Carreteras
         System.out.println("DEBUG: Cargando el shapefile de carreteras y marcando celdas en la grilla de MapCells...");
-        String roadsShapefile = "./data/roads.shp";
+        //String roadsShapefile = "./data/roads.shp";
+        //String roadsShapefile = "./data/map_data_roads.shp";
+        String roadsShapefile = ROADS_SHAPEFILE_PATH;
         List<SimpleFeature> roadFeatures = loadFeaturesFromShapefile(roadsShapefile);
 
         if (roadFeatures.isEmpty()) {

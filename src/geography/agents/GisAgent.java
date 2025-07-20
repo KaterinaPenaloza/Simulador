@@ -44,7 +44,7 @@ public class GisAgent {
 
     }
 
-    @ScheduledMethod(start = 1, interval = 20, priority = ScheduleParameters.FIRST_PRIORITY)
+    @ScheduledMethod(start = 1, interval = 1, priority = ScheduleParameters.FIRST_PRIORITY)
     public void step() {
         if (geography == null) {
             Context context = ContextUtils.getContext(this);
@@ -96,7 +96,7 @@ public class GisAgent {
             }
         }
 
-        // Si después de (re)calcular el camino está vacío, no hay ruta posible.
+        // No hay ruta posible.
         if (currentPath.isEmpty()) {
             System.err.println("DEBUG (GisAgent " + name + "): No se pudo encontrar un camino transitable.");
             return;
@@ -105,7 +105,7 @@ public class GisAgent {
         GridPoint nextGridPoint;
         // Si el agente ya está en el último punto del camino calculado
         if (currentAgentGridPoint.equals(currentPath.get(currentPath.size() - 1))) {
-             nextGridPoint = currentAgentGridPoint; // No moverse, ya en el destino o en el último paso del camino.
+             nextGridPoint = currentAgentGridPoint;
         } else if (pathIndex + 1 < currentPath.size()) {
             if (currentAgentGridPoint.equals(currentPath.get(pathIndex))) {
                  pathIndex++;
